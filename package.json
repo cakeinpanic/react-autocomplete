@@ -14,7 +14,8 @@
   },
   "scripts": {
     "test": "echo 'lol'",
-    "start": "rackt server"
+    "start": "rackt server",
+    "build": "rackt build"
   },
   "authors": [
     "Ryan Florence <rpflorence@gmail.com>"
