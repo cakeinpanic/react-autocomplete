@@ -76,7 +76,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var React = __webpack_require__(2);
 	var scrollIntoView = __webpack_require__(3);
-	
+	var ReactDOM = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"react-dom\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 	var _debugStates = [];
 	
 	var Autocomplete = React.createClass({
@@ -149,8 +149,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  maybeScrollItemIntoView: function maybeScrollItemIntoView() {
 	    if (this.state.isOpen === true && this.state.highlightedIndex !== null) {
-	      var itemNode = React.findDOMNode(this.refs['item-' + this.state.highlightedIndex]);
-	      var menuNode = React.findDOMNode(this.refs.menu);
+	      var itemNode = ReactDOM.findDOMNode(this.refs['item-' + this.state.highlightedIndex]);
+	      var menuNode = ReactDOM.findDOMNode(this.refs.menu);
 	      scrollIntoView(itemNode, menuNode, { onlyScrollIfNeeded: true });
 	    }
 	  },
@@ -213,7 +213,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.setState({
 	          isOpen: false
 	        }, function () {
-	          React.findDOMNode(_this.refs.input).select();
+	          ReactDOM.findDOMNode(_this.refs.input).select();
 	        });
 	      } else {
 	        var item = this.getFilteredItems()[this.state.highlightedIndex];
@@ -222,8 +222,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	          isOpen: false,
 	          highlightedIndex: null
 	        }, function () {
-	          //React.findDOMNode(this.refs.input).focus() // TODO: file issue
-	          React.findDOMNode(_this.refs.input).setSelectionRange(_this.props.value.length, _this.props.value.length);
+	          //ReactDOM.findDOMNode(this.refs.input).focus() // TODO: file issue
+	          ReactDOM.findDOMNode(_this.refs.input).setSelectionRange(_this.props.value.length, _this.props.value.length);
 	          _this.props.onSelect(_this.props.value, item);
 	        });
 	      }
@@ -269,7 +269,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var itemValue = this.props.getItemValue(matchedItem);
 	    var itemValueDoesMatch = itemValue.toLowerCase().indexOf(this.props.value.toLowerCase()) === 0;
 	    if (itemValueDoesMatch) {
-	      var node = React.findDOMNode(this.refs.input);
+	      var node = ReactDOM.findDOMNode(this.refs.input);
 	      var setSelection = function setSelection() {
 	        node.value = itemValue;
 	        node.setSelectionRange(_this3.props.value.length, itemValue.length);
@@ -279,7 +279,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 	
 	  setMenuPositions: function setMenuPositions() {
-	    var node = React.findDOMNode(this.refs.input);
+	    var node = ReactDOM.findDOMNode(this.refs.input);
 	    var rect = node.getBoundingClientRect();
 	    var computedStyle = getComputedStyle(node);
 	    var marginBottom = parseInt(computedStyle.marginBottom, 10);
@@ -305,7 +305,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      highlightedIndex: null
 	    }, function () {
 	      _this4.props.onSelect(_this4.props.value, item);
-	      React.findDOMNode(_this4.refs.input).focus();
+	      ReactDOM.findDOMNode(_this4.refs.input).focus();
 	      _this4.setIgnoreBlur(false);
 	    });
 	  },
@@ -318,7 +318,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var _this5 = this;
 	
 	    var items = this.getFilteredItems().map(function (item, index) {
-	      var element = _this5.props.renderItem(item, _this5.state.highlightedIndex === index, { cursor: 'default' });
+	      var element = _this5.props.renderItem(item, _this5.state.highlightedIndex === index, { cursor: 'default' }, index);
 	      return React.cloneElement(element, {
 	        onMouseDown: function onMouseDown() {
 	          return _this5.setIgnoreBlur(true);
